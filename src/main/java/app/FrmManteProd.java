@@ -256,7 +256,7 @@ public class FrmManteProd extends JFrame {
 
 		//Cierre
 		em.close();
-		System.out.println("Ternimo Busqueda .....");
+		System.out.println("Ternimo Busqueda de Productos.....");
 
 	}
 }
