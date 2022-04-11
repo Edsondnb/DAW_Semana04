@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import model.Categoria;
 import model.Producto;
 import model.Proveedor;
+import model.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -146,6 +147,15 @@ public class FrmManteProd extends JFrame {
 		cboProveedores = new JComboBox();
 		cboProveedores.setBounds(309, 102, 104, 22);
 		contentPane.add(cboProveedores);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarProducto();
+			}
+		});
+		btnBuscar.setBounds(319, 130, 89, 23);
+		contentPane.add(btnBuscar);
 
 		llenaCombo();
 	}
@@ -228,6 +238,25 @@ public class FrmManteProd extends JFrame {
 
 		em.close();
 		JOptionPane.showMessageDialog(this, "Producto registrado");
+
+	}
+	
+	void buscarProducto() {
+		EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("mysql");
+		EntityManager em = fabrica.createEntityManager();
+		
+		//select * from where id = ?
+		Producto p =  em.find(Producto.class, txtCódigo.getText());
+		
+		if (p == null) {
+			txtSalida.setText("Codigo no existe.........");
+		}else {
+			txtDescripcion.setText(p.getDes_prod());		
+		}		
+
+		//Cierre
+		em.close();
+		System.out.println("Ternimo Busqueda .....");
 
 	}
 }
